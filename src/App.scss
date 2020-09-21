@@ -1,0 +1,64 @@
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+
+$header-height: 64px;
+
+.app {
+  .app-header {
+    background-color: #fff;
+    border-bottom: 1px solid #d2dae1;
+    padding: 12px 24px;
+    height: $header-height;
+    text-align: right;
+    .logo {
+      img {
+        width: 100px;
+        margin: auto 0.5rem;
+        vertical-align: middle;
+        display: inline-block;
+      }
+      .logo-text {
+        font-weight: bold;
+        margin: auto 0.5rem;
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+    ul.nav {
+      li {
+        vertical-align: middle;
+        .nav-link {
+          margin-right: 24px;
+          color: #00112c;
+          padding: 0rem 0rem;
+          img {
+            vertical-align: middle;
+            margin: auto;
+          }
+          .link-text {
+            text-decoration: none;
+            padding: 0 0 0 6px;
+            line-height: 39px;
+            vertical-align: middle;
+            margin: auto;
+          }
+          &.btn {
+            background-color: #fff;
+            border-color: #dce0e5;
+            color: #06f;
+            padding: 0rem 0.5rem;
+          }
+        }
+      }
+    }
+  }
+  .app-body {
+    .doc-space {
+      height: calc(100vh - #{$header-height});
+    }
+    .code-space {
+      background-color: #00112c;
+      height: calc(100vh - #{$header-height});
+    }
+  }
+}
