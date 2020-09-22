@@ -1,0 +1,35 @@
+@import "../../custom";
+
+.code-space {
+  background-color: $color-solarized-dark-bg;
+  padding: 0;
+  .code-header-tabs {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    .nav-tabs {
+      border-bottom: none;
+      .nav-item {
+        margin-bottom: 0;
+        .nav-link {
+          color: #6c757d;
+          &:hover,
+          &:focus {
+            border-color: transparent transparent $color-adyen-green;
+          }
+          &.active {
+            color: $color-adyen-green;
+            border-color: transparent;
+            background-color: $color-solarized-dark-bg-light;
+            border-bottom: 1px solid $color-adyen-green;
+          }
+        }
+      }
+    }
+  }
+  .code-mirror-editor {
+    height: 100%;
+    // code-mirror internal class
+    .CodeMirror {
+      height: 100%;
+    }
+  }
+}
