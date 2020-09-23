@@ -1,14 +1,8 @@
 @import "../../custom";
 
 footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: $footer-height;
   border-top: 1px solid $color-border;
   background-color: $color-bg;
   .preview-space {
-    // position: fixed;
   }
 }

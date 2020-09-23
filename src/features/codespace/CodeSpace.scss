@@ -26,7 +26,7 @@
     }
   }
   .code-mirror-editor {
-    height: 100%;
+    height: calc(100% - 50px);
     // code-mirror internal class
     .CodeMirror {
       height: 100%;

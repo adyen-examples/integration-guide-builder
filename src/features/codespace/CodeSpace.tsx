@@ -31,7 +31,8 @@ function CodeSpace() {
   const [incrementAmount, setIncrementAmount] = useState("2");
 
   return (
-    <div className="col-md-6 code-space">
+    // <div className="col-md-6 code-space">
+    <div className="code-space">
       <div className="code-header-tabs">
         <ul className="nav nav-tabs">
           <li className="nav-item">

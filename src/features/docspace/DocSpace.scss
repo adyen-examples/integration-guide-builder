@@ -1,4 +1,8 @@
 @import "../../custom";
 
 .doc-space {
+  //   min-height: calc(
+  //     100vh - #{$header-height} - #{$footer-height} - 50px
+  //   ); // 50px comes from the code header tabs
+  padding: 1.5rem 2rem;
 }
