@@ -1,9 +1,11 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/codespace/counterSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import coeSpaceReducer from "../features/codespace/CodeSpaceSlice";
+import previewReducer from "../features/preview/PreviewSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    coeSpace: coeSpaceReducer,
+    preview: previewReducer,
   },
 });
 

@@ -3,6 +3,12 @@
 footer {
   border-top: 1px solid $color-border;
   background-color: $color-bg;
+  overflow-y: auto;
+  .heading {
+    padding: 1rem 0 0.5rem;
+    border-bottom: 1px solid $color-border;
+  }
   .preview-space {
+    padding: 1rem 2rem;
   }
 }

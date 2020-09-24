@@ -1,0 +1,4 @@
+- [ ] Fix CORS issue with API explorer proxy APIs or find a solution for backend
+- [ ] Find a solution for redirect scenarios if using API explorer proxy APIs
+- [ ] Handle redirect results to show error as alert
+- [ ]

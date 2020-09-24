@@ -9,7 +9,7 @@ import {
   incrementByAmount,
   incrementAsync,
   selectCount,
-} from "./counterSlice";
+} from "./CodeSpaceSlice";
 import "./CodeSpace.scss";
 
 const cmOptions = {
