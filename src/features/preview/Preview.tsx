@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 import AdyenCheckout from "@adyen/adyen-web";
 import "@adyen/adyen-web/dist/adyen.css";
 
@@ -104,7 +104,7 @@ class CheckoutContainer extends React.Component<ICheckoutContainerProp> {
   onSubmit = (state: any, component: any) => {
     if (state.isValid) {
       const currency = findCurrency(state.data.paymentMethod.type);
-      const orderRef = uuid();
+      const orderRef = uuidv4();
       this.props.initiatePayment({
         amount: { currency, value: 1000 }, // value is 10€ in minor units
         channel: "Web",

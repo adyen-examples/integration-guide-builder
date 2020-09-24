@@ -3,7 +3,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cors = require("cors");
-const { uuid } = require("uuidv4");
+// const { v4: uuidv4 } = require('uuid');
 const { Client, Config, CheckoutAPI } = require("@adyen/api-library");
 const app = express();
 
