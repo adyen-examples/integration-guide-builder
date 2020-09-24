@@ -103,6 +103,7 @@ export const getPaymentMethods = (): AppThunk<any> => async (dispatch) => {
   const response = await fetch(`${SERVER_URL}/paymentMethods`, {
     method: "POST",
     headers: {
+      "Content-Type": "application/json",
       //   origin: "docs.adyen.com",
     },
   });
