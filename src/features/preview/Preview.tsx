@@ -1,15 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import AdyenCheckout from "@adyen/adyen-web";
 import "@adyen/adyen-web/dist/adyen.css";
 
-import {
-  getPaymentMethods,
-  initiatePayment,
-  submitAdditionalDetails,
-  setPaymentResult,
-} from "./PreviewSlice";
+import { getPaymentMethods, initiatePayment, submitAdditionalDetails, setPaymentResult } from "./previewSlice";
 
 import "./Preview.scss";
 import { RootState } from "../../app/store";
@@ -52,13 +47,7 @@ class CheckoutContainer extends React.Component<ICheckoutContainerProp> {
   }
 
   componentDidUpdate(prevProps: ICheckoutContainerProp) {
-    const {
-      paymentMethodsRes: paymentMethodsResponse,
-      config,
-      paymentRes,
-      paymentDetailsRes,
-      error,
-    } = this.props.preview;
+    const { paymentMethodsRes: paymentMethodsResponse, config, paymentRes, paymentDetailsRes, error } = this.props.preview;
     if (error && error !== prevProps.preview.error) {
       this.props.setPaymentResult("Error", error);
       return;
@@ -66,8 +55,7 @@ class CheckoutContainer extends React.Component<ICheckoutContainerProp> {
     if (
       paymentMethodsResponse &&
       config &&
-      (paymentMethodsResponse !== prevProps.preview.paymentMethodsRes ||
-        config !== prevProps.preview.config)
+      (paymentMethodsResponse !== prevProps.preview.paymentMethodsRes || config !== prevProps.preview.config)
     ) {
       this.checkout = new AdyenCheckout({
         ...config,
@@ -77,18 +65,13 @@ class CheckoutContainer extends React.Component<ICheckoutContainerProp> {
       });
 
       if (this.checkout) {
-        this.checkout
-          .create(this.props.preview.componentType)
-          .mount(this.paymentContainer.current);
+        this.checkout.create(this.props.preview.componentType).mount(this.paymentContainer.current);
       }
     }
     if (paymentRes && paymentRes !== prevProps.preview.paymentRes) {
       this.processPaymentResponse(paymentRes);
     }
-    if (
-      paymentRes &&
-      paymentDetailsRes !== prevProps.preview.paymentDetailsRes
-    ) {
+    if (paymentRes && paymentDetailsRes !== prevProps.preview.paymentDetailsRes) {
       this.processPaymentResponse(paymentDetailsRes);
     }
   }
@@ -129,10 +112,7 @@ class CheckoutContainer extends React.Component<ICheckoutContainerProp> {
   render() {
     return (
       <div className="payment-container">
-        <PaymentResult
-          type={this.props.preview.paymentResult}
-          error={this.props.preview.error}
-        />
+        <PaymentResult type={this.props.preview.paymentResult} error={this.props.preview.error} />
         <div ref={this.paymentContainer} className="payment"></div>
       </div>
     );
@@ -150,10 +130,7 @@ const mapDispatchToProps = {
   setPaymentResult,
 };
 
-export const ConnectedCheckoutContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckoutContainer);
+export const ConnectedCheckoutContainer = connect(mapStateToProps, mapDispatchToProps)(CheckoutContainer);
 
 function findCurrency(type: string) {
   switch (type) {

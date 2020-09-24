@@ -85,12 +85,7 @@ export const previewSlice = createSlice({
   },
 });
 
-export const {
-  paymentMethods,
-  payments,
-  paymentDetails,
-  paymentResult,
-} = previewSlice.actions;
+export const { paymentMethods, payments, paymentDetails, paymentResult } = previewSlice.actions;
 
 // let SERVER_URL = "https://docs.adyen.com/api-explorer/api/checkout/v64";
 let SERVER_URL = "http://localhost:8080/api"; // TODO
@@ -110,9 +105,7 @@ export const getPaymentMethods = (): AppThunk<any> => async (dispatch) => {
   dispatch(paymentMethods([await response.json(), response.status]));
 };
 
-export const initiatePayment = (data: any): AppThunk<any> => async (
-  dispatch
-) => {
+export const initiatePayment = (data: any): AppThunk<any> => async (dispatch) => {
   const response = await fetch(`${SERVER_URL}/payments`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -123,9 +116,7 @@ export const initiatePayment = (data: any): AppThunk<any> => async (
   dispatch(payments([await response.json(), response.status]));
 };
 
-export const submitAdditionalDetails = (data: any): AppThunk<any> => async (
-  dispatch
-) => {
+export const submitAdditionalDetails = (data: any): AppThunk<any> => async (dispatch) => {
   const response = await fetch(`${SERVER_URL}/payments/details`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -136,9 +127,7 @@ export const submitAdditionalDetails = (data: any): AppThunk<any> => async (
   dispatch(paymentDetails([await response.json(), response.status]));
 };
 
-export const setPaymentResult = (res: string, err = ""): AppThunk<any> => (
-  dispatch
-) => {
+export const setPaymentResult = (res: string, err = ""): AppThunk<any> => (dispatch) => {
   dispatch(paymentResult([res, err]));
 };
 

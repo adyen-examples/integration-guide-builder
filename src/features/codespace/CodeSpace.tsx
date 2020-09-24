@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import { useSelector, useDispatch } from "react-redux";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/solarized.css";
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  selectCount,
-} from "./CodeSpaceSlice";
+import { getFileFromGH, getSelected } from "./codeSpaceSlice";
+
 import "./CodeSpace.scss";
 
 const cmOptions = {
@@ -26,12 +21,13 @@ const cmOptions = {
 const code = "<h1>I ♥ react-codemirror2</h1>";
 
 function CodeSpace() {
-  const count = useSelector(selectCount);
+  const { platform, server, client } = useSelector(getSelected);
   const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState("2");
+  useEffect(() => {
+    dispatch(getFileFromGH("index.json"));
+  });
 
   return (
-    // <div className="col-md-6 code-space">
     <div className="code-space">
       <div className="code-header-tabs">
         <ul className="nav nav-tabs">

@@ -1,6 +1,7 @@
 import React from "react";
+import Alert from "react-bootstrap/Alert";
 import { useDispatch } from "react-redux";
-import { paymentResult } from "./PreviewSlice";
+import { paymentResult } from "./previewSlice";
 
 function getAlertParams(type: string, err: string) {
   switch (type) {
@@ -20,21 +21,9 @@ function PaymentResult({ type, error }: { type: string; error: string }) {
   const [className, msg] = getAlertParams(type, error);
   return type ? (
     <div className="payment-res">
-      <div
-        className={`alert alert-${className} alert-dismissible fade show`}
-        role="alert"
-      >
+      <Alert variant={className} onClose={() => dispatch(paymentResult(["", ""]))} dismissible>
         {msg}
-        <button
-          type="button"
-          className="close"
-          data-dismiss="alert"
-          aria-label="Close"
-          onClick={() => dispatch(paymentResult(["", ""]))}
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      </Alert>
     </div>
   ) : null;
 }

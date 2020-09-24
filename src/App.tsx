@@ -4,7 +4,7 @@ import Split from "react-split";
 import "./App.scss";
 import Header from "./features/header/Header";
 import CodeSpace from "./features/codespace/CodeSpace";
-import DocSpace from "./features/docspace/DocSpace";
+import DocSpace from "./features/codespace/DocSpace";
 import Preview from "./features/preview/Preview";
 
 const GUTTER_SIZE = 10;
