@@ -3,7 +3,7 @@ import { UnControlled as CodeMirror } from "react-codemirror2";
 import { useSelector, useDispatch } from "react-redux";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/solarized.css";
-import { getFileFromGH, getSelected } from "./codeSpaceSlice";
+import { getOptionsFile, getSelected } from "./codeSpaceSlice";
 
 import "./CodeSpace.scss";
 
@@ -23,9 +23,10 @@ const code = "<h1>I ♥ react-codemirror2</h1>";
 function CodeSpace() {
   const { platform, server, client } = useSelector(getSelected);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getFileFromGH("index.json"));
-  });
+    dispatch(getOptionsFile());
+  }, [dispatch]);
 
   return (
     <div className="code-space">

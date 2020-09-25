@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import fetchFromGH from "github-fetch-file";
 import { AppThunk, RootState } from "../../app/store";
 import { fetchFromGitHub } from "../../utils/githubFetch";
 
@@ -28,6 +27,7 @@ interface CodeSpaceState {
     client?: Client;
     isAllSet?: boolean;
   };
+  markdown: string;
 }
 
 const initialState: CodeSpaceState = {
@@ -36,6 +36,7 @@ const initialState: CodeSpaceState = {
   selected: {
     isAllSet: false,
   },
+  markdown: "",
 };
 
 export type OptionFromGH = typeof initialState.options;
@@ -54,10 +55,48 @@ export const codeSpaceSlice = createSlice({
     setSelected: (state, action: PayloadAction<SelectedOptions>) => {
       state.selected = action.payload;
     },
+    setMarkdown: (state, action: PayloadAction<string>) => {
+      state.markdown = action.payload;
+    },
   },
 });
 
-export const { setOptions, setError, setSelected } = codeSpaceSlice.actions;
+export const { setOptions, setError, setSelected, setMarkdown } = codeSpaceSlice.actions;
+
+export const getOptionsFile = (): AppThunk => async (dispatch, getState) => {
+  try {
+    const res = await fetchFromGitHub("index.json");
+    const json = await res.json();
+    dispatch(setOptions(json));
+    dispatch(setSelected(getDefaultSelected(getState().codeSpace.options.platforms[0])));
+  } catch (error) {
+    console.error(error);
+    dispatch(setError(error.message || error));
+  }
+};
+
+export const getSourceFiles = (): AppThunk => async (dispatch, getState) => {
+  const [path, ok] = getRepoFilePath(getState().codeSpace.selected);
+  if (ok) {
+    try {
+      const res = await fetchFromGitHub(`${path}/README.md`);
+      const md = await res.text();
+      dispatch(setMarkdown(md));
+    } catch (error) {
+      console.error(error);
+      dispatch(setError(error.message || error));
+    }
+  }
+};
+
+export const getSelected = (state: RootState) => state.codeSpace.selected;
+export const getOptions = (state: RootState) => state.codeSpace.options;
+
+export default codeSpaceSlice.reducer;
+
+function getRepoFilePath(sel: SelectedOptions): [string, boolean] {
+  return [`${sel.platform?.name}-${sel.server?.name}-${sel.client?.name}`, sel.isAllSet || false];
+}
 
 function getDefaultSelected(pl: Platform): SelectedOptions {
   return {
@@ -67,19 +106,3 @@ function getDefaultSelected(pl: Platform): SelectedOptions {
     isAllSet: true,
   };
 }
-
-export const getFileFromGH = (fileName: string): AppThunk => async (dispatch, getState) => {
-  try {
-    const res = await fetchFromGitHub(fileName);
-    dispatch(setOptions(res));
-    dispatch(setSelected(getDefaultSelected(getState().codeSpace.options.platforms[0])));
-  } catch (error) {
-    console.error(error);
-    dispatch(setError(error.message || error));
-  }
-};
-
-export const getSelected = (state: RootState) => state.codeSpace.selected;
-export const getOptions = (state: RootState) => state.codeSpace.options;
-
-export default codeSpaceSlice.reducer;
