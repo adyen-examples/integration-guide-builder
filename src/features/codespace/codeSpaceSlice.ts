@@ -2,21 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import { fetchFromGitHub } from "../../utils/githubFetch";
 
-interface Client {
+export interface Client {
   name: string;
   label: string;
 }
-interface Server {
+export interface Server {
   name: string;
   label: string;
   clients?: Client[];
 }
-interface Platform {
+export interface Platform {
   name: string;
   label: string;
   servers?: Server[];
 }
-interface CodeSpaceState {
+export interface SourceFile {
+  name: string;
+  content: string;
+}
+export interface CodeSpaceState {
   error: string;
   options: {
     platforms: Platform[];
@@ -28,15 +32,21 @@ interface CodeSpaceState {
     isAllSet?: boolean;
   };
   markdown: string;
+  sourceFiles: SourceFile[];
 }
-
+const MARKDOWN_DEF = "## Selection not found";
+const SOURCE_DEF = {
+  name: "index",
+  content: "",
+};
 const initialState: CodeSpaceState = {
   options: { platforms: [] },
   error: "",
   selected: {
     isAllSet: false,
   },
-  markdown: "",
+  markdown: MARKDOWN_DEF,
+  sourceFiles: [SOURCE_DEF],
 };
 
 export type OptionFromGH = typeof initialState.options;
@@ -58,10 +68,13 @@ export const codeSpaceSlice = createSlice({
     setMarkdown: (state, action: PayloadAction<string>) => {
       state.markdown = action.payload;
     },
+    setSource: (state, action: PayloadAction<SourceFile[]>) => {
+      state.sourceFiles = action.payload;
+    },
   },
 });
 
-export const { setOptions, setError, setSelected, setMarkdown } = codeSpaceSlice.actions;
+export const { setOptions, setError, setSelected, setMarkdown, setSource } = codeSpaceSlice.actions;
 
 export const getOptionsFile = (): AppThunk => async (dispatch, getState) => {
   try {
@@ -76,16 +89,37 @@ export const getOptionsFile = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const getSourceFiles = (): AppThunk => async (dispatch, getState) => {
-  const [path, ok] = getRepoFilePath(getState().codeSpace.selected);
+  const { selected } = getState().codeSpace;
+  const [path, ok] = getRepoFilePath(selected);
   if (ok) {
     try {
       const res = await fetchFromGitHub(`${path}/README.md`);
       const md = await res.text();
       dispatch(setMarkdown(md));
+      const indexRes = await fetchFromGitHub(`${path}/index.json`);
+      const index = await indexRes.json();
+
+      // using promise.all to fetch these in parallel
+      const sourceFiles: SourceFile[] = await Promise.all(
+        index.map(async (name: string) => {
+          const res = await fetchFromGitHub(`${path}/${name}`);
+          const content = await res.text();
+          return {
+            name,
+            content,
+          };
+        })
+      );
+      dispatch(setSource(sourceFiles));
     } catch (error) {
       console.error(error);
       dispatch(setError(error.message || error));
+      dispatch(setMarkdown(MARKDOWN_DEF));
+      dispatch(setSource([SOURCE_DEF]));
     }
+  } else {
+    dispatch(setMarkdown(MARKDOWN_DEF));
+    dispatch(setSource([SOURCE_DEF]));
   }
 };
 

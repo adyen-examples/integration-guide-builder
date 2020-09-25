@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 
-import { setSelected, getSelected, getOptions, SelectedOptions, getSourceFiles } from "./codeSpaceSlice";
+import { setSelected, getSelected, getOptions, SelectedOptions, getSourceFiles, getOptionsFile } from "./codeSpaceSlice";
 import "./DocSpace.scss";
 
 function DocSpace() {
@@ -14,8 +14,12 @@ function DocSpace() {
   const { platforms } = useSelector(getOptions);
 
   useEffect(() => {
+    dispatch(getOptionsFile());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(getSourceFiles());
-  }, [selected, platforms, dispatch]);
+  }, [selected, dispatch]);
 
   return (
     <div className="doc-space container-fluid">
