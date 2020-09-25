@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { UnControlled as CodeMirror } from "react-codemirror2";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Nav from "react-bootstrap/Nav";
+// codemirror dependencies and modes
+import { UnControlled as CodeMirror } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/solarized.css";
 import "codemirror/mode/javascript/javascript";
@@ -22,6 +23,7 @@ import "codemirror/mode/swift/swift";
 import "./CodeSpace.scss";
 import { RootState } from "../../app/store";
 import { SourceFile } from "./codeSpaceSlice";
+import { findCMMode } from "./CodeMirrorUtils";
 
 const cmOptions = {
   lineNumbers: true,
@@ -31,6 +33,7 @@ const cmOptions = {
 function CodeSpace() {
   const sourceFiles = useSelector((state: RootState) => state.codeSpace.sourceFiles);
   const [source, setSource] = useState<SourceFile>();
+  const editorRef = useRef<CodeMirror>(null);
 
   useEffect(() => {
     if (sourceFiles && sourceFiles[0]) {
@@ -52,7 +55,7 @@ function CodeSpace() {
         </Nav>
       </div>
       <CodeMirror
-        // ref={this.editorRef}
+        ref={editorRef}
         className="code-mirror-editor"
         value={source?.content}
         // onChange={this.editorOnChange}
@@ -60,51 +63,18 @@ function CodeSpace() {
           ...cmOptions,
           mode: findCMMode(source?.name),
         }}
+        // selection={{
+        //   ranges: [
+        //     {
+        //       anchor: { ch: 1, line: 40 },
+        //       head: { ch: 1, line: 43 },
+        //     },
+        //   ],
+        //   focus: true, // defaults false if not specified
+        // }}
       />
     </div>
   );
 }
 
 export default CodeSpace;
-
-function findCMMode(fileName: string | undefined): string {
-  if (!fileName) return "";
-  const parts = fileName.split(".");
-  const ext = parts.length > 0 ? parts[parts.length - 1] : "";
-  switch (ext) {
-    case "html":
-      return "text/html";
-    case "css":
-      return "text/css";
-    case "js":
-      return "text/javascript";
-    case "ts":
-      return "text/typescript";
-    case "jsx":
-      return "text/jsx";
-    case "tsx":
-      return "text/typescript-jsx";
-    case "vue":
-      return "text/x-vue";
-    case "java":
-      return "text/x-java";
-    case "kt":
-      return "text/x-kotlin";
-    case "cs":
-      return "text/x-csharp";
-    case "cshtml":
-      return "text/x-aspx";
-    case "go":
-      return "text/x-go";
-    case "php":
-      return "text/x-php";
-    case "py":
-      return "text/x-python";
-    case "rb":
-      return "text/x-ruby";
-    case "swift":
-      return "text/x-swift";
-    default:
-      return "";
-  }
-}
