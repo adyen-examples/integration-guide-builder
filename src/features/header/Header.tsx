@@ -9,7 +9,7 @@ function Header() {
     <header className="app-header d-flex justify-content-between">
       <a href="./" className="logo">
         <img src={logo} alt="Adyen logo" />
-        <span className="logo-text">Integration Builder</span>
+        <span className="logo-text">Integration Guides</span>
       </a>
       <ul className="nav">
         <li className="nav-item">
