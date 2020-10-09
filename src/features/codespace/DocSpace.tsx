@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 
+import CodeBlock from "./CodeBlock";
 import { setSelected, getSelected, getOptions, SelectedOptions, getSourceFiles, getOptionsFile } from "./codeSpaceSlice";
 import "./DocSpace.scss";
 
@@ -69,7 +70,16 @@ function DocSpace() {
       </div>
       <div className="row">
         <div className="col">
-          <div className="mt-4">{selected.isAllSet ? <ReactMarkdown source={markdown} /> : null}</div>
+          <div className="mt-4">
+            {selected.isAllSet ? (
+              <ReactMarkdown
+                source={markdown}
+                renderers={{
+                  code: CodeBlock,
+                }}
+              />
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
