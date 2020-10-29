@@ -1,12 +1,12 @@
 - [x] change default example to NodeJS tutorial
 - [x] add one more example
 - [ ] Make the codeMirror editor readonly
-- [ ] make server client code reusable and composable by changing organization structure. Make it possible to specify/overrride server/cleint code folder path in root index.json config
+- [ ] make server client code reusable and composable by changing organization structure. Make it possible to specify/override server/client code folder path in root index.json config
 - [ ] Build an markdown comment annotation system to scroll to relevant content on the code
 - [ ] solution to load images in Readme's
-- [ ] When  a server is choosen and if there is only one client, set it by default
+- [ ] When  a server is chooses and if there is only one client, set it by default
 - [ ] Fix CORS issue with API explorer proxy APIs or find a solution for backend
 - [ ] Find a solution for redirect scenarios if using API explorer proxy APIs
 - [ ] Handle redirect results to show error as alert
 - [ ] Make readme and code occupy same height, and scroll readme with body scroll
-- [x] change codemirror mode based on extension
+- [x] change code-mirror mode based on extension
