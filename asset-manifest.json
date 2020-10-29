@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e58a6b4b.chunk.css",
+    "main.js": "/static/js/main.b604b7d8.chunk.js",
+    "main.js.map": "/static/js/main.b604b7d8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.6bc068fe.js",
+    "runtime-main.js.map": "/static/js/runtime-main.6bc068fe.js.map",
+    "static/css/2.41ea3651.chunk.css": "/static/css/2.41ea3651.chunk.css",
+    "static/js/2.347b707b.chunk.js": "/static/js/2.347b707b.chunk.js",
+    "static/js/2.347b707b.chunk.js.map": "/static/js/2.347b707b.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.151443b6d400615c57bafcff553bfc4a.js": "/precache-manifest.151443b6d400615c57bafcff553bfc4a.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.41ea3651.chunk.css.map": "/static/css/2.41ea3651.chunk.css.map",
+    "static/css/main.e58a6b4b.chunk.css.map": "/static/css/main.e58a6b4b.chunk.css.map",
+    "static/js/2.347b707b.chunk.js.LICENSE.txt": "/static/js/2.347b707b.chunk.js.LICENSE.txt",
+    "static/media/adyen-logo.svg": "/static/media/adyen-logo.19857533.svg",
+    "static/media/docs-icon.svg": "/static/media/docs-icon.f0254ce2.svg",
+    "static/media/support-icon.svg": "/static/media/support-icon.c463d965.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6bc068fe.js",
+    "static/css/2.41ea3651.chunk.css",
+    "static/js/2.347b707b.chunk.js",
+    "static/css/main.e58a6b4b.chunk.css",
+    "static/js/main.b604b7d8.chunk.js"
+  ]
+}
